@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>
 		control div
 	</title>
@@ -11,17 +12,31 @@
 		#div1{width:100px;height:100px;background: black;margin: 10px auto;display: block;}
 	</style>
 	<script type="text/javascript">
-		var changeStyle = function (elem,attr,) {
-			// body...
+		var changeStyle = function (elem,attr,value) {
+			elem.style[attr] = value;
 		}
+		window.onload=function () {
+			var oBtn = document.getElementsByTagName("input");
+			var oDiv = document.getElementById("div1");
+			var oAtt = ["width","height","background","display","display"];
+			var oVal = ["200px","200px","red","none","block"];
+			for (var i =  0	; i < oBtn.length; i++) {
+				oBtn[i].index = i;
+				oBtn[i].onclick = function ()
+				{
+				this.index == oBtn.length - 1 && (oDiv.style.cssText = "");
+				changeStyle(oDiv, oAtt[this.index], oVal[this.index])
+				}	
+			}
+		};
 	</script>
 </head>
 <body>
 <div id="outer">
-	<input type="button" value="changW">
-	<input type="button" value="changT">
-	<input type="button" value="changC">
-	<input type="button" value="toH">
+	<input type="button" value="changeW">
+	<input type="button" value="changeT">
+	<input type="button" value="changeColor">
+	<input type="button" value="toHidden">
 	<input type="button" value="reset">
 	<div id="div1"></div>
 </div>
