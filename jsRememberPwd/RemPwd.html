@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>remember pwd</title>
+<style type="text/css">
+	div{text-align: center;}
+	#outer{width: 300px;margin: 10px auto;}
+	#tips{padding: 5px;margin-top: 5px;background: #ffefa4;border: 1px solid #f90;display: none;}
+</style>
+<script type="text/javascript">
+window.onload = function(){
+	var oTips = document.getElementById("tips");
+	var oLabel = document.getElementsByTagName("label")[0];
+	oLabel.onmouseover = function () {		
+		oTips.style.display = "block";
+	}
+	oLabel.onmouseout = function () {
+		oTips.style.display = "none";
+	}
+}
+</script>
+
+</head>
+<body>
+<div id="outer">
+	<label><input type="checkbox"/>auto login in two week</label>
+	<div id="tips">Warnning!Don't use it in public</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Alert Param</title>
+
+<style type="text/css">
+	body{text-align: center;}
+	button{cursor: pointer;}
+
+</style>
+<script type="text/javascript">
+	var zFun = function (a,b) {
+		alert(a.value);
+		alert(b.value);
+	}
+	window.onload = function(){
+		var oInput = document.getElementsByTagName("input");
+		var oBtn = document.getElementsByTagName("button")[0];
+		oBtn.onclick = function(){
+			zFun(oInput[0],oInput[1]);
+		}
+	}
+</script>
+</head>
+<body>
+<p><input type="text" value="param1"/></p>
+<p><input type="text" value="param2"/></p>
+<p><button>commit</button></p>
+</body>
+</html>
