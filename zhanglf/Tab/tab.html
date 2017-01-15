@@ -3,27 +3,83 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>tab</title>
-</head>
-<style type="text/css">
-	body,div,ul,li,p{margin: 0;padding: 0;}
-    body{font 12px/1.5 Arial;}
-    ul{list-style-type: none;}
-    #nav,#nav ul,#nav ul li,#nav ul li a:hover,#nav .subnav,#nav .subnav p,#nav .subnav p span,#nav .subnav .arrow{background:url(nav_bg.png) no-repeat;}
-    #nav{position: relative;widows: 910px;background-position: 0 -360px;margin: 10px auto;}
-    #nav ul{height: 36px;line-height: 36px;margin-left: 10px;padding-right: 10px;overflow: hidden;background-position: right -72px;}
-    #nav ul li{float:left;width:110px;margin-left:-2px;background-position:0 -108px;}
-    #nav ul li a{font-size:14px;color:#fff;width:102px;display:block;text-align:center;text-decoration:none;margin:0 2px 0 4px;}
-    #nav ul li a:hover{font-weight:700;background-position:-3px -144px;}
-    #nav .subnav{display:none;position:absolute;top:41px;width:auto!important;min-width:110px;height:27px;line-height:27px;white-space:nowrap;background-position:0 -180px;}
-    #nav .subnav p{margin-left:10px;padding-right:10px;background-position:right -234px;}
-    #nav .subnav p span{display:block;color:#235e99;background-repeat:repeat-x;background-position:0 -207px;}
-    #nav .subnav p a{font-size:12px;display:inline;color:#235e99;text-decoration:none;margin:0 5px;padding:0 2px;}
-    #nav .subnav p a:hover{font-weight:400;background-image:none;border-bottom:2px solid;}
-    #nav .subnav .arrow{position:absolute;top:-4px;display:block;width:11px;height:5px;background-position:0 -261px;}
+<style>
+body,div,ul,li,p{margin:0;padding:0;}
+body{font:12px/1.5 Arial;}
+ul{list-style-type:none;}
+#nav,#nav ul,#nav ul li,#nav ul li a:hover,#nav .subnav,#nav .subnav p,#nav .subnav p span,#nav .subnav .arrow{background:url(nav_bg.png) no-repeat;}
+#nav{position:relative;width:910px;background-position:0 -36px;margin:10px auto;}
+#nav ul{height:36px;line-height:36px;margin-left:10px;padding-right:10px;overflow:hidden;background-position:right -72px;}
+#nav ul li{float:left;width:110px;margin-left:-2px;background-position:0 -108px;}
+#nav ul li a{font-size:14px;color:#fff;width:102px;display:block;text-align:center;text-decoration:none;margin:0 2px 0 4px;}
+#nav ul li a:hover{font-weight:700;background-position:-3px -144px;}
+#nav .subnav{display:none;position:absolute;top:41px;width:auto!important;min-width:110px;height:27px;line-height:27px;white-space:nowrap;background-position:0 -180px;}
+#nav .subnav p{margin-left:10px;padding-right:10px;background-position:right -234px;}
+#nav .subnav p span{display:block;color:#235e99;background-repeat:repeat-x;background-position:0 -207px;}
+#nav .subnav p a{font-size:12px;display:inline;color:#235e99;text-decoration:none;margin:0 5px;padding:0 2px;}
+#nav .subnav p a:hover{font-weight:400;background-image:none;border-bottom:2px solid;}
+#nav .subnav .arrow{position:absolute;top:-4px;display:block;width:11px;height:5px;background-position:0 -261px;}
 </style>
 <script type="text/javascript">
-	
+    var get  = {
+        byId: function(id){
+            return document.getElementById(id);
+        },
+        byClass: function(sClass,oParent){
+            var aClass = [];
+            var reClass = new RegExp("(^| )"+sClass+"( |$)");
+            var aElem = this.byTagName("*",oParent);
+            for (var i = 0; i < aElem.length; i++) {
+                reClass.test(aElem[i].className)&&aClass.push(aElem[i]);
+            }
+            return aClass;
+        },
+        byTagName: function (elem,obj) {
+            return (obj || document).getElementsByTagName(elem);
+        },
+    };
+    window.onload = function(){
+        var oNav = get.byId("nav");
+        var aLi = get.byTagName("li",oNav);
+        var aSubNav = get.byClass("subnav",oNav);
+        var oSubNav = oEm = timer = null;
+        var i = 0;
+
+        //隐藏所有子菜单
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].onmouseover = function(){
+                for (var i = 0; i < aSubNav.length; i++)aSubNav[i].style.display = "none";
+                //获取该项下的子菜单
+                oSubNav = get.byClass("subnav",this)[0];
+                //获取该项下的指示箭头
+                oEm = get.byTagName("em",this)[0];
+                //显示该项下的菜单
+                oSubNav.style.display = "block";
+                //判断显示区域
+                oNav.offsetWidth - this.offsetLeft > oSubNav.offsetWidth?
+                //在显示范围居左显示
+                oSubNav.style.left = this.offsetLeft + "px":
+                //超出显示范围居右显示
+                oSubNav.style.right = 0;
+                //计算指标箭头显示位置
+                oEm.style.left = this.offsetLeft - oSubNav.offsetLeft + 50 + "px";
+                clearTimeout(timer);
+
+                //阻止事件冒泡
+                oSubNav.onmouseover = function(event){
+                    (event||window.evenet).cancelBubble = true;
+                    clearTimeout(timer);
+                }
+        };
+            aLi[i].onmouseout = function () {
+                timer = setTimeout(function(){
+                    oSubNav.style.display = "none"
+                },300);
+            }
+        }
+    };
 </script>
+</head>
 <body>
 <div id="nav">
 	<ul>
