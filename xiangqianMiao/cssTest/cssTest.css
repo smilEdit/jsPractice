@@ -1,0 +1,5 @@
+p.testBd{
+	border-style: dotted solid dashed double;
+	border-width: 10px;
+	border-color: red;
+}
