@@ -30,6 +30,9 @@ ul{list-style-type:none;}
             var reClass = new RegExp("(^| )"+sClass+"( |$)");
             var aElem = this.byTagName("*",oParent);
             for (var i = 0; i < aElem.length; i++) {
+            	//RegExp中的test方法 检索字符串中的指定值。返回值是 true 或 false。
+            	//js中的&& 总体的返回值是最后一个表达式的值。这个表达式不一定是bool值或者数字，还可能是数组、对象、函数等一切可以隐式转换用来参与与运算的东西
+            	//数组中的push方法   可向数组的末尾添加一个或多个元素，并返回新的长度。
                 reClass.test(aElem[i].className)&&aClass.push(aElem[i]);
             }
             return aClass;
