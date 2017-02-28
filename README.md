@@ -1,6 +1,4 @@
 # jsPractice
-some of my jsTest
+some of jsTest
 
-learn about http://fgm.cc/learn/
-
-test again
+learn [example](http://fgm.cc/learn/)
